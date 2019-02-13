@@ -9,21 +9,26 @@ namespace MicrosoftDocsTutorials.Controllers
 {
     public class HelloWorldController : Controller
     {
-
-        // GET: /HelloWorld/
-
-        public string Index()
+        public IActionResult Index()
         {
-            return "this is the default action.";
+            return View();
         }
 
-        // GET: /HelloWorld/Welcome
-
-        // GET: /HelloWorld/Welcome/ 
-        // Requires using System.Text.Encodings.Web;
-        public string Welcome(string name, int ID = 1)
+        public IActionResult Welcome(string name, int numTimes = 1)
         {
-            return HtmlEncoder.Default.Encode($"Hello {name}, ID: {ID}");
+            // adds a Message and NumTimes value to the ViewData dictionary. 
+            // The ViewData dictionary is a dynamic object, which means any type can be used
+            ViewData["Message"] = "Hello " + name;
+            ViewData["NumTimes"] = numTimes;
+
+            return View();
         }
     }
 }
+
+//summary
+/*
+ Data is taken from the URL and passed to the controller using the MVC model binder.
+ The controller packages the data into a ViewData dictionary and passes that object to the view.
+ The view then renders the data as HTML to the browser.
+ */
